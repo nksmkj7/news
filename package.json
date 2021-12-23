@@ -6,11 +6,17 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon index.js",
-        "build": "tsc"
+        "build": "tsc",
+        "knex:migrate:make": "knex --knexfile src/database/knexfile.ts migrate:make -x ts",
+        "knex:migrate:latest": "knex --knexfile src/database/knexfile.ts migrate:latest",
+        "knex:migrate:rollback": "knex --knexfile src/database/knexfile.ts migrate:rollback",
+        "knex:seed:make": "knex --knexfile src/database/knexfile.ts seed:make -x ts",
+        "knex:seed:run": "knex --knexfile src/database/knexfile.ts seed:run"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "axios": "^0.24.0",
         "body-parser": "^1.19.1",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",

@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
-module.exports = {
-    // getNews: async (req: Request, res: Response) => {
-    //     const news = await News.find({}).sort({ createdAt: -1 });
-    //     res.json(news);
-    // }   
+import axios from 'axios'
+import NewsService  from './../services/news.service';
+
+export const newsController= {
+    getNews: async (req: Request, res: Response) => {
+        return res.json(await new NewsService().getNews(req)).status(200);
+    }   
 }
