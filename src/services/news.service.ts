@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { axiosGet } from './../helpers/axios';
+import { getJsonXml } from './../helpers/converter';
 import db  from '../db';
 
 export default class NewsService {
@@ -10,7 +11,10 @@ export default class NewsService {
             throw new Error(`Section ${section} is not valid`);
         }
         const page:any = req.query?.page ?? 1;
-        const response = await axiosGet(url, { q: section, page: page,"show-fields":"all" });
+        const response = await axiosGet(url, { q: section, page: page, "show-fields": "all" });
+        if (req.headers?.accept === 'application/rss+xml' || req.headers?.accept === 'application/xml') {
+            return getJsonXml(response.data.response.results);
+        }
         return response.data.response.results;
     }
 
