@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-interface rssJson { 
+export interface rssJson { 
     title: string;
     description: string;
     link: string;
@@ -19,6 +19,10 @@ const getRssJson = (item: any): rssJson => {
         link : item.webUrl,
         pubDate : dayjs(item.pubDate).format('ddd DD MMM YYYY HH:mm:ss ZZ')
       }
+}
+
+export const getRssJsonArray = (items: object[]): rssJson[] => {
+  return items.map(item => getRssJson(item));
 }
 
 const OBJtoXML = (obj:objectToXML) =>{
@@ -43,11 +47,16 @@ const OBJtoXML = (obj:objectToXML) =>{
 }
 
 
-export const getJsonXml = (jsonData: object[]): string => {
+export const getJsonXml = (jsonData:{
+    title: string,
+    description: string,
+    items: rssJson[]
+}): string => {
   let xml = '<?xml version="1.0" encoding="utf-8"?><rss version="2.0"><channel>';
-  jsonData.forEach((item: object) => {
-    const requiredJsonData = getRssJson(item);
-    xml += OBJtoXML({ item: requiredJsonData });
+  xml += OBJtoXML({title:jsonData.title,description:jsonData.description});
+  jsonData.items.forEach((item: object) => {
+    // const requiredJsonData = getRssJson(item);
+    xml += OBJtoXML({ item });
     xml += "</channel></rss>"
   });
   return xml;
