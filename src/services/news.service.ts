@@ -3,6 +3,7 @@ import { axiosGet } from './../helpers/axios';
 import { getJsonXml,getRssJsonArray,rssJson } from './../helpers/converter';
 import db from '../db';
 import CacheService from './cache.service';
+import logger from './logger.service';
 
 interface finalRssJson {
     title: string,
@@ -18,6 +19,7 @@ export default class NewsService {
 
     async getNews(req: Request): Promise<string | finalRssJson>
     {   
+        logger.error('test error');
         const url = "https://content.guardianapis.com/search"
         const section = req.params.section; 
         if (!await this.checkValidSection(section)) {   
