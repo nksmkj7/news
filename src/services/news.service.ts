@@ -20,6 +20,7 @@ export default class NewsService {
     async getNews(req: Request): Promise<string | finalRssJson>
     {   
         logger.error('test error');
+        throw new Error('test error');
         const url = "https://content.guardianapis.com/search"
         const section = req.params.section; 
         if (!await this.checkValidSection(section)) {   
