@@ -3,7 +3,7 @@ import { axiosGet } from './../helpers/axios';
 import { getJsonXml,getRssJsonArray,rssJson } from './../helpers/converter';
 import db from '../db';
 import CacheService from './cache.service';
-import logger from './logger.service';
+import { ErrorException } from './../error-handler/error-exception';
 
 interface finalRssJson {
     title: string,
@@ -18,13 +18,11 @@ export default class NewsService {
     }
 
     async getNews(req: Request): Promise<string | finalRssJson>
-    {   
-        logger.error('test error');
-        throw new Error('test error');
+    {  
         const url = "https://content.guardianapis.com/search"
         const section = req.params.section; 
         if (!await this.checkValidSection(section)) {   
-            throw new Error(`Section ${section} is not valid`);
+            throw new ErrorException("NotFound",`Section ${section} is not valid section name.`)
         }
         let finalJson = {} as finalRssJson;
         const page: any = req.query?.page ?? 1;
