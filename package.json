@@ -1,38 +1,46 @@
 {
-    "name": "news",
-    "version": "1.0.0",
-    "description": "",
-    "main": "lib/index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon index.js",
-        "build": "tsc",
-        "knex:migrate:make": "knex --knexfile src/database/knexfile.ts migrate:make -x ts",
-        "knex:migrate:latest": "knex --knexfile src/database/knexfile.ts migrate:latest",
-        "knex:migrate:rollback": "knex --knexfile src/database/knexfile.ts migrate:rollback",
-        "knex:seed:make": "knex --knexfile src/database/knexfile.ts seed:make -x ts",
-        "knex:seed:run": "knex --knexfile src/database/knexfile.ts seed:run"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "axios": "^0.24.0",
-        "body-parser": "^1.19.1",
-        "cors": "^2.8.5",
-        "dayjs": "^1.10.7",
-        "dotenv": "^10.0.0",
-        "express": "^4.17.2",
-        "knex": "^0.95.14",
-        "mysql2": "^2.3.3",
-        "redis": "^4.0.1",
-        "winston": "^3.3.3"
-    },
-    "devDependencies": {
-        "@types/body-parser": "^1.19.2",
-        "@types/cors": "^2.8.12",
-        "@types/express": "^4.17.13",
-        "nodemon": "^2.0.15",
-        "ts-node": "^10.4.0",
-        "typescript": "^4.5.4"
-    }
+  "name": "news",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "build": "tsc",
+    "lint": "eslint --ignore-path .eslintignore --fix --ext .js,.ts .",
+    "knex:migrate:make": "knex --knexfile src/database/knexfile.ts migrate:make -x ts",
+    "knex:migrate:latest": "knex --knexfile src/database/knexfile.ts migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile src/database/knexfile.ts migrate:rollback",
+    "knex:seed:make": "knex --knexfile src/database/knexfile.ts seed:make -x ts",
+    "knex:seed:run": "knex --knexfile src/database/knexfile.ts seed:run",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "knex": "^0.95.14",
+    "mysql2": "^2.3.3",
+    "redis": "^4.0.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
 }

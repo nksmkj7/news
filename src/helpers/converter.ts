@@ -1,63 +1,63 @@
 import dayjs from 'dayjs';
 
-export interface rssJson { 
-    title: string;
-    description: string;
-    link: string;
-    pubDate: string;
-}
+export type rssJson = {
+  title: string;
+  description: string;
+  link: string;
+  pubDate: string;
+};
 
-interface objectToXML { 
-  [index: string] : any
-}
+type objectToXML = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any;
+};
 
-
-const getRssJson = (item: any): rssJson => { 
-      return {
-        title: item.fields.headline,
-        description: item.fields.body,
-        link : item.webUrl,
-        pubDate : dayjs(item.pubDate).format('ddd DD MMM YYYY HH:mm:ss ZZ')
-      }
-}
+const getRssJson = (item: any): rssJson => {
+  return {
+    title: item.fields.headline,
+    description: item.fields.body,
+    link: item.webUrl,
+    pubDate: dayjs(item.pubDate).format('ddd DD MMM YYYY HH:mm:ss ZZ'),
+  };
+};
 
 export const getRssJsonArray = (items: object[]): rssJson[] => {
-  return items.map(item => getRssJson(item));
-}
+  return items.map((item) => getRssJson(item));
+};
 
-const OBJtoXML = (obj:objectToXML) =>{
-  var xml = '';
-  for (var prop in obj) {
-    xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
+const OBJtoXML = (obj: objectToXML) => {
+  let xml = '';
+  for (const prop in obj) {
+    xml += obj[prop] instanceof Array ? '' : '<' + prop + '>';
     if (obj[prop] instanceof Array) {
-      for (var array in obj[prop]) {
-        xml += "<" + prop + ">";
+      for (const array in obj[prop]) {
+        xml += '<' + prop + '>';
         xml += OBJtoXML(new Object(obj[prop][array]));
-        xml += "</" + prop + ">";
+        xml += '</' + prop + '>';
       }
-    } else if (typeof obj[prop] == "object") {
+    } else if (typeof obj[prop] == 'object') {
       xml += OBJtoXML(new Object(obj[prop]));
     } else {
       xml += obj[prop];
     }
-    xml += obj[prop] instanceof Array ? '' : "</" + prop + ">";
+    xml += obj[prop] instanceof Array ? '' : '</' + prop + '>';
   }
-  var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
-  return xml
-}
+  xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
+  return xml;
+};
 
-
-export const getJsonXml = (jsonData:{
-    title: string,
-    description: string,
-    items: rssJson[]
+export const getJsonXml = (jsonData: {
+  title: string;
+  description: string;
+  items: rssJson[];
 }): string => {
-  let xml = '<?xml version="1.0" encoding="utf-8"?><rss version="2.0"><channel>';
-  xml += OBJtoXML({title:jsonData.title,description:jsonData.description});
+  let xml =
+    '<?xml version="1.0" encoding="utf-8"?><rss version="2.0"><channel>';
+  xml += OBJtoXML({ title: jsonData.title, description: jsonData.description });
   jsonData.items.forEach((item: object) => {
     // const requiredJsonData = getRssJson(item);
     xml += OBJtoXML({ item });
-    xml += "</channel></rss>"
+    xml += '</channel></rss>';
   });
   return xml;
-}
+};

@@ -1,9 +1,12 @@
 import { ErrorCode } from './error-code';
 
 export class ErrorException extends Error {
-  public status: number = 500;
-  public message: string = "Something went wrong."
-  constructor(code: string = ErrorCode.UnknownError, message: string = "Something went wrong.",metaData: any = null) {
+  public status = 500;
+  public message = 'Something went wrong.';
+  constructor(
+    code: string = ErrorCode.UnknownError,
+    message = 'Something went wrong.',
+  ) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
     this.name = code;
