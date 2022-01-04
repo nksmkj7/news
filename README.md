@@ -17,3 +17,5 @@
 - redis -> for caching
 - express -> node js framework
 
+## System Flow
+> After running migration and seeding, sections that are available in 'The Guardian' are stored in database and later it is used to validate the section that the user has requested. <br> The end point is http://localhost:3000/api/news/{{valid-section-name}} if your are running it on local machine and your port is 3000. System cache the news for that section for 10 minutes and serves from cache if requested again. Above mention serves xml if accept type is either application/rss+xml or 'application/xml'. Otherwise it serves json value instead.
