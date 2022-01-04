@@ -35,7 +35,7 @@ export default class NewsService {
 
     let finalJson = {} as finalRssJson;
     const page: any = req.query?.page ?? 1;
-    if (!!(await this.cacheService.checkNewsInCache(`${section}_${page}`))) {
+    if ((await this.cacheService.checkNewsInCache(`${section}_${page}`))) {
       finalJson = JSON.parse(
         await this.cacheService.getNewsFromCache(`${section}_${page}`),
       );

@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { ErrorException } from './../error-handler/error-exception';
 import logger from '../services/logger.service';
 
