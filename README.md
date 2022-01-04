@@ -5,6 +5,7 @@
 - Run npm install
 - Copy content of .env.example to .env
 - Create mysql database as named in .env 
+- Run npm run knex:migrate:latest
 - Run npm run knex:seed:run
 - Run npm build
 - Run npm start
@@ -15,3 +16,4 @@
 - axios -> for fetching news
 - redis -> for caching
 - express -> node js framework
+
