@@ -22,13 +22,20 @@ export default class NewsService {
     const section = req.params.section;
     if (!(await this.checkValidSection(section))) {
       throw new ErrorException(
-        'NotFound',
-        `Section ${section} is not valid section name.`,
+        'BadRequest',
+        `Section name should only consists hyphen and alphabets and should start and end with alphabet.`,
       );
     }
+    if (!(await this.checkSectionAvailability(section))) {
+      throw new ErrorException(
+        'NotFound',
+        `Section ${section} is not available.`,
+      );
+    }
+
     let finalJson = {} as finalRssJson;
-      const page: any = req.query?.page ?? 1;
-      if (!!(await this.cacheService.checkNewsInCache(`${section}_${page}`))) {
+    const page: any = req.query?.page ?? 1;
+    if (!!(await this.cacheService.checkNewsInCache(`${section}_${page}`))) {
       finalJson = JSON.parse(
         await this.cacheService.getNewsFromCache(`${section}_${page}`),
       );
@@ -58,6 +65,11 @@ export default class NewsService {
   }
 
   async checkValidSection(section: string) {
+    const regex = /^[a-zA-Z]([a-zA-Z-]*[a-zA-Z])?$/;
+    return regex.test(section);
+  }
+
+  async checkSectionAvailability(section: string) {
     const validSections = await db('news_sections').pluck('slug');
     return validSections.includes(section);
   }

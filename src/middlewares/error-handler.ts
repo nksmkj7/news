@@ -31,5 +31,5 @@ export const errorHandler = (
     statusCode,
     errorMessage,
   });
-    next();
+  next();
 };
