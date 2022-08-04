@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api/news', newsRoute);
+//test comment
 // error handling
 // app.use((err: Error, req:Request, res: Response, next:NextFunction) => {
 //     console.log(err);
